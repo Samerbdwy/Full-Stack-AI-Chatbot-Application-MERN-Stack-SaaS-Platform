@@ -4,11 +4,14 @@ import Message from './Message';
 import { assets } from '../assets/assets';
 
 const ChatBox = () => {
-  const { selectedChat, user, setUser, refreshUserData } = useAppContext(); // Added refreshUserData
+  const { selectedChat, user, setUser, refreshUserData } = useAppContext();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // Use environment variable for API URL
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
 
   // Fetch messages when chat changes
   useEffect(() => {
@@ -16,7 +19,7 @@ const ChatBox = () => {
     const fetchMessages = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`http://localhost:3000/api/chat/${selectedChat._id}`, {
+        const res = await fetch(`${SERVER_URL}/api/chat/${selectedChat._id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -66,7 +69,7 @@ const ChatBox = () => {
       const token = localStorage.getItem('token');
       console.log('🔄 Publishing message at index:', messageIndex);
       
-      const res = await fetch(`http://localhost:3000/api/chat/${selectedChat._id}/publish`, {
+      const res = await fetch(`${SERVER_URL}/api/chat/${selectedChat._id}/publish`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -115,7 +118,7 @@ const ChatBox = () => {
       console.log('🔄 Sending to Gemini API...');
       console.log('🔵 Current user credits:', user?.credits);
       
-      const res = await fetch('http://localhost:3000/api/message/text', {
+      const res = await fetch(`${SERVER_URL}/api/message/text`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -196,7 +199,7 @@ const ChatBox = () => {
       const token = localStorage.getItem('token');
       console.log('🔵 Current user credits before image generation:', user?.credits);
       
-      const res = await fetch('http://localhost:3000/api/message/image', {
+      const res = await fetch(`${SERVER_URL}/api/message/image`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

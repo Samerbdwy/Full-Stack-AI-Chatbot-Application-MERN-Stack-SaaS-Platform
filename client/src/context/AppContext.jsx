@@ -12,6 +12,9 @@ export const AppContextProvider = ({ children }) => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [contextReady, setContextReady] = useState(false);
 
+  // Use environment variable for API URL
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     localStorage.setItem('theme', theme);
@@ -27,7 +30,8 @@ export const AppContextProvider = ({ children }) => {
       }
 
       console.log('🔵 Refreshing user data...');
-      const res = await fetch('http://localhost:3000/api/auth/me', {
+      // Use environment variable for API URL
+      const res = await fetch(`${SERVER_URL}/api/auth/me`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
 
@@ -55,7 +59,8 @@ export const AppContextProvider = ({ children }) => {
       if (!storedToken) return;
 
       console.log('🔵 Fetching user chats...');
-      const res = await fetch('http://localhost:3000/api/chat/', {
+      // Use environment variable for API URL
+      const res = await fetch(`${SERVER_URL}/api/chat/`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
 

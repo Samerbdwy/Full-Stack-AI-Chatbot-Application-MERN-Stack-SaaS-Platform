@@ -11,6 +11,9 @@ const Community = () => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [authChecked, setAuthChecked] = useState(false)
 
+  // Use environment variable for API URL
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000'
+
   useEffect(() => {
     // Wait for user state to be determined before fetching
     if (user !== null) {
@@ -35,7 +38,8 @@ const Community = () => {
         return
       }
 
-      const res = await fetch('http://localhost:3000/api/auth/published-images', {
+      // Use environment variable for API URL
+      const res = await fetch(`${SERVER_URL}/api/auth/published-images`, {
         headers: { Authorization: `Bearer ${token}` }
       })
 

@@ -13,6 +13,9 @@ const Credits = () => {
   const [processing, setProcessing] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(null);
 
+  // Use environment variable for API URL
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+
   // Check for payment success on component mount
   useEffect(() => {
     const sessionId = searchParams.get('session_id');
@@ -46,7 +49,8 @@ const Credits = () => {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const res = await fetch('http://localhost:3000/api/auth/me', {
+      // Use environment variable for API URL
+      const res = await fetch(`${SERVER_URL}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -76,7 +80,8 @@ const Credits = () => {
       // Add a small delay to ensure Stripe has processed the payment
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      const res = await fetch(`http://localhost:3000/api/credit/verify-payment?session_id=${sessionId}`);
+      // Use environment variable for API URL
+      const res = await fetch(`${SERVER_URL}/api/credit/verify-payment?session_id=${sessionId}`);
       
       const data = await res.json();
       
@@ -118,7 +123,8 @@ const Credits = () => {
       
       console.log('🔵 [PAYMENT] Starting purchase for plan:', plan.name);
       
-      const res = await fetch('http://localhost:3000/api/credit/create-checkout-session', {
+      // Use environment variable for API URL
+      const res = await fetch(`${SERVER_URL}/api/credit/create-checkout-session`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json', 

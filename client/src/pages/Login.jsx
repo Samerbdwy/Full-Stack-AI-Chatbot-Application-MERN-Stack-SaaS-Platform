@@ -11,6 +11,9 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Use environment variable for API URL with fallback
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -20,7 +23,8 @@ const Login = () => {
     const bodyData = state === "login" ? { email, password } : { name, email, password };
 
     try {
-      const res = await fetch(`http://localhost:3000${endpoint}`, {
+      // Use environment variable for API URL
+      const res = await fetch(`${SERVER_URL}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bodyData),
@@ -47,7 +51,7 @@ const Login = () => {
         setError(data.message || "Authentication failed");
       }
     } catch (err) {
-      console.error(err);
+      console.error('Login error:', err);
       setError("Server error, please try again");
     } finally {
       setLoading(false);

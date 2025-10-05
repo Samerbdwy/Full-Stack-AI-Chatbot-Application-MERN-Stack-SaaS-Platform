@@ -10,15 +10,19 @@ import communityRouter from "./routes/communityRoutes.js";
 
 const app = express();
 
-// ✅ Enable CORS for frontend
+// ✅ Simple CORS configuration that works for both local and Vercel
 app.use(cors({
-  origin: "http://localhost:5173", // Your Vite frontend
+  origin: [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173", 
+    process.env.FRONTEND_URL
+  ].filter(Boolean), // Remove undefined values
   credentials: true
 }));
 
 app.use(express.json());
 
-// ✅ Fixed: Removed the stray 'z' character
+// ✅ Connect to database
 connectDB();
 
 app.get("/", (req, res) => res.send("Server is Live!"));
