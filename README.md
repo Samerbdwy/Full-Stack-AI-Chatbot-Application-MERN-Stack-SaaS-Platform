@@ -38,7 +38,7 @@ The application is designed to be **scalable**, supporting over 1,000+ AI conver
 * **Database**: MongoDB
 * **AI Integration**: OpenAI Google Gemini API
 * **Image Handling**: ImageKit
-* **Deployment**: (Specify your deployment platform, e.g., Vercel, Heroku, AWS)
+* **Deployment**: Vercel
 
 
 
