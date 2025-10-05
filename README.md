@@ -32,7 +32,7 @@ The application is designed to be **scalable**, supporting over 1,000+ AI conver
 
 ## Technology Stack
 
-* **Frontend**: React.js, HTML, CSS, JavaScript
+* **Frontend**: React.js, HTML, Tailwind CSS, JavaScript
 * **Backend**: Node.js, Express.js
 * **Database**: MongoDB
 * **AI Integration**: OpenAI Google Gemini API
