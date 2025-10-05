@@ -21,7 +21,6 @@ The application is designed to be **scalable**, supporting over 1,000+ AI conver
 * **Chat Management**:
 
   * Users can **rename a chat** before starting the first conversation.
-  * Once a conversation has begun, the chat name **cannot be changed**.
   * Users can **delete chats** at any time.
   * Users can **publish chats to the community**.
   * **Deleting a chat removes any associated AI-generated images** from the community.
