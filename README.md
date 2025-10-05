@@ -46,7 +46,7 @@ The application is designed to be **scalable**, supporting over 1,000+ AI conver
 ## Demo & Deployment Links
 
 * **Demo**: React.js, HTML, CSS, JavaScript
-* **Deployment**: Node.js, Express.js
+* **Deployment**: https://quick-gpt-lyart.vercel.app/
 
 
 
