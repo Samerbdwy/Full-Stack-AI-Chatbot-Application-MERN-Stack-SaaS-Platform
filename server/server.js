@@ -10,26 +10,14 @@ import communityRouter from "./routes/communityRoutes.js";
 
 const app = express();
 
-// ✅ Enhanced CORS for Vercel deployment
+// ✅ FIXED CORS for Vercel deployment
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    const allowedOrigins = [
-      "http://localhost:5173",
-      "http://127.0.0.1:5173",
-      "https://full-stack-ai-chatbot-application-m-lyart.vercel.app/", // ← REPLACE WITH YOUR ACTUAL VERCEL FRONTEND URL
-      process.env.FRONTEND_URL
-    ].filter(Boolean);
-    
-    if (allowedOrigins.includes(origin) || origin.includes('.vercel.app')) {
-      return callback(null, true);
-    } else {
-      console.log('Blocked by CORS:', origin);
-      return callback(new Error('Not allowed by CORS'), false);
-    }
-  },
+  origin: [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://full-stack-ai-chatbot-application-m-lyart.vercel.app",
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
