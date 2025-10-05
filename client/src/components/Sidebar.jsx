@@ -26,7 +26,10 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
     e.stopPropagation();
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/api/chat/${chatId}`, {
+      // Use environment variable for API URL
+      const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+      
+      const res = await fetch(`${SERVER_URL}/api/chat/${chatId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +59,10 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
   const handleNewChat = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:3000/api/chat/new', {
+      // Use environment variable for API URL
+      const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+      
+      const res = await fetch(`${SERVER_URL}/api/chat/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +88,10 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
     e.stopPropagation();
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/api/chat/${chatId}`, {
+      // Use environment variable for API URL
+      const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+      
+      const res = await fetch(`${SERVER_URL}/api/chat/${chatId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -142,6 +151,24 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
+  // Get display name for chat - FIXED VERSION
+  const getChatDisplayName = (chat) => {
+    // Always use the chat name if it exists and is not "New Chat" or similar
+    if (chat.name && chat.name !== 'New Chat' && chat.name !== 'Hi') {
+      return chat.name;
+    }
+    
+    // If no custom name, use the first message content
+    if (chat.messages && chat.messages.length > 0 && chat.messages[0]?.content) {
+      const firstMessage = chat.messages[0].content;
+      // Truncate long messages
+      return firstMessage.length > 32 ? firstMessage.slice(0, 32) + '...' : firstMessage;
+    }
+    
+    // Fallback to default name
+    return chat.name || 'New Chat';
+  };
+
   return (
     <div
       className={`flex flex-col h-screen min-w-80 p-6 dark:bg-gradient-to-br from-gray-900 to-purple-900 bg-gradient-to-br from-white to-purple-50 border-r border-gray-200 dark:border-purple-700 backdrop-blur-3xl transition-all duration-500 max-md:absolute left-0 z-20 shadow-xl ${
@@ -188,17 +215,16 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
 
       {/* Recent Chats Section with Fixed Height and Scroll */}
       {chats.length > 0 && (
-        <div className="mb-6 flex-1 min-h-0"> {/* Changed to flex-1 min-h-0 for proper flex scrolling */}
+        <div className="mb-6 flex-1 min-h-0">
           <p className="text-sm font-semibold text-gray-600 dark:text-purple-300 mb-3 px-2 flex-shrink-0">Recent Chats</p>
           
           {/* Scrollable chats container */}
-          <div className="flex-1 overflow-y-auto space-y-2 max-h-full"> {/* Removed max-h-96, use flex-1 instead */}
+          <div className="flex-1 overflow-y-auto space-y-2 max-h-full">
             {chats
-              .filter((chat) =>
-                chat.messages && chat.messages[0]
-                  ? chat.messages[0]?.content?.toLowerCase().includes(search.toLowerCase())
-                  : chat.name?.toLowerCase().includes(search.toLowerCase())
-              )
+              .filter((chat) => {
+                const displayName = getChatDisplayName(chat).toLowerCase();
+                return displayName.includes(search.toLowerCase());
+              })
               .map((chat) => (
                 <div
                   onClick={() => {
@@ -226,11 +252,9 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
                       />
                     ) : (
                       <>
+                        {/* FIXED: Always use the chat name, not the first message */}
                         <p className="truncate font-medium text-sm dark:text-white">
-                          {chat.messages && chat.messages.length > 0 
-                            ? (chat.messages[0].content?.slice(0, 32) || 'Empty chat')
-                            : chat.name || 'New Chat'
-                          }
+                          {getChatDisplayName(chat)}
                         </p>
                         <p className="text-xs opacity-70 mt-1 dark:text-purple-300">
                           {moment(chat.updatedAt).fromNow()}
@@ -260,7 +284,7 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
       )}
 
       {/* Bottom Navigation & Actions - Enhanced - FIXED POSITION */}
-      <div className="mt-auto space-y-3 pt-6 border-t border-gray-200 dark:border-purple-700 flex-shrink-0"> {/* Added flex-shrink-0 */}
+      <div className="mt-auto space-y-3 pt-6 border-t border-gray-200 dark:border-purple-700 flex-shrink-0">
         {/* Community */}
         <div
           onClick={() => navigate('/community')}
