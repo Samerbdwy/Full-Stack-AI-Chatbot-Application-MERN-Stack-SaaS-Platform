@@ -42,8 +42,12 @@ The application is designed to be **scalable**, supporting over 1,000+ AI conver
 
 
 
-## Demo & Deployment Link
 
-Demo:
-Deployment Link:
+## Demo & Deployment
+
+**Demo:** [View Demo](#)
+**Deployment Link:** [Visit App](#)
+
+
+
 
