@@ -45,7 +45,7 @@ The application is designed to be **scalable**, supporting over 1,000+ AI conver
 ## Demo & Deployment Links
 
 * **Demo**: React.js, HTML, CSS, JavaScript
-* **Deployment**: https://quick-gpt-lemon-nu.vercel.app/
+* **Deployment**: https://full-stack-ai-chatbot-application-m-lyart.vercel.app/
 
 
 
