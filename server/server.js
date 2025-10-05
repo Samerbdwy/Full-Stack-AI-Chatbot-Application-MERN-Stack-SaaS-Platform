@@ -19,11 +19,11 @@ app.use(cors({
     const allowedOrigins = [
       "http://localhost:5173",
       "http://127.0.0.1:5173",
-      "http://localhost:5173/", // Replace with your actual frontend URL
+      "https://your-frontend-app.vercel.app", // ← REPLACE WITH YOUR ACTUAL VERCEL FRONTEND URL
       process.env.FRONTEND_URL
     ].filter(Boolean);
     
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(origin) || origin.includes('.vercel.app')) {
       return callback(null, true);
     } else {
       console.log('Blocked by CORS:', origin);
@@ -65,5 +65,5 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// ✅ Vercel serverless function export
+export default app;
