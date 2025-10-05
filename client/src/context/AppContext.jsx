@@ -13,7 +13,7 @@ export const AppContextProvider = ({ children }) => {
   const [contextReady, setContextReady] = useState(false);
 
   // Use environment variable for API URL
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');

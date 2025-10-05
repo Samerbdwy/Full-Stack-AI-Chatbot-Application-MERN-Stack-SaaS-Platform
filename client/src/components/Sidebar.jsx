@@ -27,7 +27,7 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
     try {
       const token = localStorage.getItem('token');
       // Use environment variable for API URL
-      const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+      const SERVER_URL = import.meta.env.VITE_SERVER_URL;
       
       const res = await fetch(`${SERVER_URL}/api/chat/${chatId}`, {
         method: 'PUT',
@@ -60,7 +60,7 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
     try {
       const token = localStorage.getItem('token');
       // Use environment variable for API URL
-      const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+      const SERVER_URL = import.meta.env.VITE_SERVER_URL;
       
       const res = await fetch(`${SERVER_URL}/api/chat/new`, {
         method: 'POST',
@@ -89,7 +89,7 @@ const Sidebar = ({ isMenuOpen, setIsMenuOpen }) => {
     try {
       const token = localStorage.getItem('token');
       // Use environment variable for API URL
-      const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+      const SERVER_URL = import.meta.env.VITE_SERVER_URL;
       
       const res = await fetch(`${SERVER_URL}/api/chat/${chatId}`, {
         method: 'DELETE',

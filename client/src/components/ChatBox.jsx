@@ -11,7 +11,7 @@ const ChatBox = () => {
   const messagesEndRef = useRef(null);
 
   // Use environment variable for API URL
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
   // Fetch messages when chat changes
   useEffect(() => {

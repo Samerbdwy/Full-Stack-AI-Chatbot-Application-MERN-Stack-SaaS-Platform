@@ -12,7 +12,7 @@ const Community = () => {
   const [authChecked, setAuthChecked] = useState(false)
 
   // Use environment variable for API URL
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000'
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL
 
   useEffect(() => {
     // Wait for user state to be determined before fetching

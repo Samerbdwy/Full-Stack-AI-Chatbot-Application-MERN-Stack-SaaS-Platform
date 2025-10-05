@@ -14,7 +14,7 @@ const Credits = () => {
   const [paymentStatus, setPaymentStatus] = useState(null);
 
   // Use environment variable for API URL
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
   // Check for payment success on component mount
   useEffect(() => {

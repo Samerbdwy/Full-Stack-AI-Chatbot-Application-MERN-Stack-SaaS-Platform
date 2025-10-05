@@ -12,7 +12,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   // Use environment variable for API URL with fallback
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
